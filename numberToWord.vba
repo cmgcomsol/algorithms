@@ -1,5 +1,7 @@
+
+
 Global digit(99) As String
-  
+ 
 Function DigitWords(number)
     If number = 0 Then
         DigitWords = ""
@@ -13,7 +15,7 @@ Function HundredWords(number)
         HundredWords = ""
         Exit Function
     End If
-    
+   
     Let m = Int(number / 100)
     HundredWords = digit(m) + " HUNDRED " + digit(number Mod 100)
 End Function
@@ -23,7 +25,7 @@ Function ThousandWords(number)
         ThousandWords = ""
         Exit Function
     End If
-    
+   
     Let m = Int(number / 1000)
     ThousandWords = digit(m) + " THOUSAND " + HundredWords(number Mod 1000)
 End Function
@@ -33,7 +35,7 @@ Function LakhWords(number)
         LakhWords = ""
         Exit Function
     End If
-    
+   
     Let m = Int(number / 100000)
     LakhWords = digit(m) + " LAKH " + ThousandWords(number Mod 100000)
 End Function
@@ -43,14 +45,14 @@ Function CroreWords(number)
         CroreWords = ""
         Exit Function
     End If
-    
+   
     Let m = Int(number / 10000000)
     CroreWords = digit(m) + " CRORE " + LakhWords(number Mod 10000000)
 End Function
 
 Function NumToWords(number)
     Rem will convert numbers to indian numbers in words upto 1 crore
-    
+   
     digit(0) = ""
     digit(1) = "ONE"
     digit(2) = "TWO"
@@ -152,7 +154,7 @@ Function NumToWords(number)
     digit(98) = "NINETY EIGHT"
     digit(99) = "NINETY-NINE"
     Rem digit(100) = "HUNDRED"
- 
+ 
     If (number < 100) Then
         NumToWords = DigitWords(number)
         Exit Function
@@ -169,12 +171,12 @@ Function NumToWords(number)
         NumToWords = CroreWords(number)
         Exit Function
     End If
- 
+ 
     NumToWords = "{OUT OF BAND}"
- 
+ 
 End Function
 Sub ConvertNumToWords()
- MsgBox "Hello"
- MsgBox NumToWords(1)
- 
+ MsgBox "Hello"
+ MsgBox NumToWords(1)
+ 
 End Sub
