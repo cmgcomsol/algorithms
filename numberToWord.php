@@ -16,7 +16,11 @@ function HundredWords($number,$digit){
     }
    
     $m = intval($number / 100);
-    return $digit[$m] . " HUNDRED " . $digit[intval($number % 100)];
+    if ($m == 0) {
+		return $digit[intval($number % 100)];
+    } else {
+		return $digit[$m] . " HUNDRED " . $digit[intval($number % 100)];
+    }
 }
 
 function ThousandWords($number,$digit){
