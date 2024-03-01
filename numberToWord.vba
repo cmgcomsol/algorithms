@@ -17,7 +17,12 @@ Function HundredWords(number)
     End If
    
     Let m = Int(number / 100)
-    HundredWords = digit(m) + " HUNDRED " + digit(number Mod 100)
+    if m=0 Then
+        HundredWords = digit(number Mod 100)
+    else
+        HundredWords = digit(m) + " HUNDRED " + digit(number Mod 100)
+    endi if
+    
 End Function
 
 Function ThousandWords(number)
