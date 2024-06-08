@@ -6,3 +6,5 @@ Some basic functions and algorithms i would like to have easily access in github
 numbertoword.* : convert numbers in numerals to words in indian counting form
 
 updatewindowstime.py : as the name says
+
+nosqlsqlite3 : my nosql implementation in language concerned
