@@ -2,3 +2,4 @@
 /NoSQLSqlite3/example.sqlite3
 /NoSQLSqlite3/example.sqlite3-journal
 /.idea
+/NoSQLSqlite3/node_modules

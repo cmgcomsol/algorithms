@@ -1,0 +1,14 @@
+{
+  "name": "nosqlsqlite3",
+  "version": "1.0.0",
+  "description": "Nosql Sqlite3 implementation",
+  "main": "nosqlsqlite3.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "author": "GCM",
+  "license": "GPL-2.0-only",
+  "dependencies": {
+    "sqlite3": "^5.1.7"
+  }
+}

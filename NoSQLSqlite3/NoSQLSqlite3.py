@@ -29,7 +29,7 @@ class NoSQLSqlite3:
 	# print(self.keylist)
 
 	def getKeyList(self):
-		res = self.cur.execute("select key from  tb")
+		res = self.cur.execute("select key from  tb order by key")
 		keys = []
 		res = res.fetchall()
 		for rec in res:
@@ -80,6 +80,8 @@ class NoSQLSqlite3:
 		query = "delete from  tb where key='%s'" % key
 		# print(query)
 		self.cur.execute(query)
+		self.conn.commit()
+
 		self.keylist = self.getKeyList()
 
 
@@ -91,3 +93,16 @@ if __name__ == "__main__":
 	print(nosql.get('a'))
 	nosql.remove('a')
 	print(nosql.keylist)
+	x = 1000
+	print("setting values", x)
+	start = time.time()
+	for i in range(1, x):
+		nosql.set("a%s" % i, time.time())
+	end = time.time()
+	print("Total time to write %s records" % x, end - start)
+	print("reading values")
+	for i in range(1, x):
+		print(i, nosql.get("a%s" % i))
+
+	for i in range(1, x):
+		print(i, nosql.remove("a%s" % i))
