@@ -9,6 +9,7 @@
   "author": "GCM",
   "license": "GPL-2.0-only",
   "dependencies": {
+    "better-sqlite3": "^11.0.0",
     "sqlite3": "^5.1.7"
   }
 }

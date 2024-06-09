@@ -1,39 +1,21 @@
 //const mainMenuTemplate = require("./menutemplate.js").mainMenuTemplate;
-const NoSQLSqlite3 = require("./nosqlsqlite3.js").NoSQLSqlite3
+const NoSQLBetterSqlite3 = require("./nosqlbettersqlite3.js").NoSQLBetterSqlite3
 
-let db = new NoSQLSqlite3("example.sqlite3")
-db.getKeyList(list => {
-	console.log(list)
-	db.set("b", Date.now(), (err) => {
-		if (err !== null) {
-			db.get('b', (value => {
-				if (value !== undefined)
-					console.log(value);
-			}))
-		} else {
-			console.log(err)
-		}
-	})
+let db = new NoSQLBetterSqlite3("example.sqlite3")
+console.log(db.getKeyList())
 
-	/*for (let i = 0; i < 1000; i++) {
-		db.set('a' + i, Date.now(), err => {
-			console.log("completed value key", 'a' + i)
-		})
+for (let i = 0; i < 1000; i++) {
+	console.log("Setting...", 'a' + i, db.set('a' + i, Date.now()))
+}
 
-	}*/
 
-	/*for (let i = 0; i <= 1000; i++) {
-		let x = Math.floor(Math.random() * (1000 - 0 + 1) + 0);
-		db.get('a' + x, value => {
-			console.log(i, 'a' + x, value)
-		})
-	}*/
+for (let i = 0; i <= 1000; i++) {
+	let x = Math.floor(Math.random() * (1000 - 0 + 1) + 0);
+	console.log(db.get('a' + x))
+}
 
-	console.log("Deleting...")
-	for (let i = 0; i < 1000; i++) {
-		db.del('a' + i, err => {
-			console.log('a' + i, err)
-		})
-	}
-})
+console.log("Deleting...")
+for (let i = 0; i < 1000; i++) {
+	console.log("Deleting...", 'a' + i, db.del('a' + i))
+}
 
