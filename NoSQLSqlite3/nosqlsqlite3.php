@@ -44,8 +44,15 @@ class NoSQLSqlite3
 		return $row['value'];
 	}
 
+	function getJson($key)
+	{
+		return json_decode($this->get($key), true);
+	}
+
 	function set($key, $value)
 	{
+		assert(gettype($value) == 'string', "Value must be of string type");
+
 		if (array_search($key, $this->keylist) === false) { // key not found
 			$this->keylist[] = $key;
 			$query = "insert into tb values('{$key}','{$value}')";

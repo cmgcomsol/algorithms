@@ -1,7 +1,7 @@
 import os
 import sqlite3
 import time
-
+import json
 
 class NoSQLSqlite3:
 	def __init__(self, pathtosqlite3):
@@ -51,10 +51,11 @@ class NoSQLSqlite3:
 		# print(rec[0])
 		return rec[0]
 
+	def getJson(self,key):
+		return json.loads(self.getJson(key))
+
 	def set(self, key, value):
-		key = str(key)
-		value = str(value)
-		assert type(key) == str, "Key must be string"
+		key = str(key)				
 		assert type(value) == str, "Value must be string"
 
 		# print(key)

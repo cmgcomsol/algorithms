@@ -39,7 +39,15 @@ class NoSQLBetterSqlite3 {
 		return this.db.prepare(query).get().value;
 	}
 
+	getJson(key) {
+		return JSON.parse(this.get(key));
+	}
+
 	set(key, value) {
+		if (typeof (value) !== "string") {
+			throw new Error("Value Error: Value must be string type")
+		}
+
 		//console.log(value)
 		if (this.keylist.indexOf(key) !== -1) { //key existing
 			let query = `update tb set value='${value}' where key='${key}'`
