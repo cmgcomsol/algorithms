@@ -3,6 +3,7 @@ import sqlite3
 import time
 import json
 
+
 class NoSQLSqlite3:
 	def __init__(self, pathtosqlite3):
 		# test for pathtosqlite3 exists and if not create it
@@ -51,11 +52,11 @@ class NoSQLSqlite3:
 		# print(rec[0])
 		return rec[0]
 
-	def getJson(self,key):
+	def getJson(self, key):
 		return json.loads(self.getJson(key))
 
 	def set(self, key, value):
-		key = str(key)				
+		key = str(key)
 		assert type(value) == str, "Value must be string"
 
 		# print(key)
@@ -71,6 +72,20 @@ class NoSQLSqlite3:
 
 		self.conn.commit()
 
+	def setInsertMany(self, keyvaluelist):
+		query = "insert into tb values(?,?)"
+		retvalue = self.cur.executemany(query, keyvaluelist)
+		self.keylist = self.getKeyList()
+		self.conn.commit()
+		return retvalue
+
+	def setUpdateMany(self, valuekeylist):
+		query = "update tb set value=? where key=?"
+		retvalue = self.cur.executemany(query, valuekeylist)
+		self.keylist = self.getKeyList()
+		self.conn.commit()
+		return retvalue
+
 	def remove(self, key):
 		key = str(key)
 		assert type(key) == str, "Key must be string"
@@ -82,23 +97,29 @@ class NoSQLSqlite3:
 		# print(query)
 		self.cur.execute(query)
 		self.conn.commit()
-
 		self.keylist = self.getKeyList()
+
+	def removeMany(self, keylist):
+		query = "delete from tb where key=?"
+		retvalue = self.cur.executemany(query, keylist)
+		self.keylist = self.getKeyList()
+		self.conn.commit()
+		return retvalue
 
 
 # example
 if __name__ == "__main__":
 	nosql = NoSQLSqlite3("example.sqlite3")
 	print(nosql.keylist)
-	nosql.set('a', time.time())
+	nosql.set('a', str(time.time()))
 	print(nosql.get('a'))
 	nosql.remove('a')
 	print(nosql.keylist)
-	x = 1000
+	x = 10
 	print("setting values", x)
 	start = time.time()
 	for i in range(1, x):
-		nosql.set("a%s" % i, time.time())
+		nosql.set("a%s" % i, str(time.time()))
 	end = time.time()
 	print("Total time to write %s records" % x, end - start)
 	print("reading values")
@@ -106,4 +127,44 @@ if __name__ == "__main__":
 		print(i, nosql.get("a%s" % i))
 
 	for i in range(1, x):
-		print(i, nosql.remove("a%s" % i))
+		print("removing", "a%s" % i, nosql.remove("a%s" % i))
+
+	start = time.time()
+	##insert many test
+	max = 1000000
+	print("Starting insert many test")
+	tmplist = []
+	for i in range(max):
+		tmplist.append(['x%s' % i, str(time.time())])
+
+	print(nosql.setInsertMany(tmplist))
+
+	# for i in nosql.keylist:
+	#	print(i, nosql.get(i))
+	end = time.time()
+	print("Total time to write %s records" % max, int(round(end - start)))
+
+	start = time.time()
+	##update many test
+	print("Starting udpate many test")
+	tmplist = []
+	for i in range(max):
+		tmplist.append([str(time.time()), 'x%s' % i])
+
+	print(nosql.setUpdateMany(tmplist))
+
+	# for i in nosql.keylist:
+	#	print(i, nosql.get(i))
+	end = time.time()
+	print("Total time to write %s records" % max, int(round(end - start)))
+
+	start = time.time()
+	##remove many test
+	print("Starting remove many test")
+	tmplist = []
+	for i in range(max):
+		tmplist.append(['x%s' % i, ])
+
+	print(nosql.removeMany(tmplist))
+	end = time.time()
+	print("Total time to write %s records" % max, int(round(end - start)))
