@@ -42,7 +42,12 @@ class NoSQLBetterSqlite3 {
 	}
 
 	getJson(key) {
-		return JSON.parse(this.get(key));
+		let result = this.get(key)
+		if (result !== undefined) {
+			return JSON.parse(result);
+		} else {
+			return result;
+		}
 	}
 
 	set(key, value) {
@@ -68,7 +73,9 @@ class NoSQLBetterSqlite3 {
 		if (this.keylist.indexOf(key) !== -1) { //key existing
 			let query = `delete from tb where key='${key}'`
 			//console.log(query)
-			return this.db.prepare(query).run()
+			this.db.prepare(query).run()
+			this.getKeyList()
+			return null
 		} else {	//key does not exist			
 			return undefined
 		}
