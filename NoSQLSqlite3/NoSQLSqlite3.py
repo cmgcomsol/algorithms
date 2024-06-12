@@ -131,7 +131,7 @@ if __name__ == "__main__":
 
 	start = time.time()
 	##insert many test
-	max = 1000000
+	max = 10000000
 	print("Starting insert many test")
 	tmplist = []
 	for i in range(max):

@@ -15,6 +15,8 @@ class NoSQLBetterSqlite3 {
 			this.db = new sqlite3(pathtofile);
 		}
 
+		this.getKeyList()
+
 	}
 
 	getKeyList() {
