@@ -50,6 +50,11 @@ class NoSQLBetterSqlite3 {
 		}
 	}
 
+	getAllKeyValue() {
+		let query = `select key,value from tb`
+		return this.db.prepare(query).all()
+	}
+
 	set(key, value) {
 		if (typeof (value) !== "string") {
 			throw new Error("Value Error: Value must be string type")
