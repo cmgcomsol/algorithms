@@ -1,0 +1,15 @@
+{
+	"name": "nodejs7zipper",
+	"version": "1.0.0",
+	"description": "module for nodejs 7z file compression",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"node-7z-archive": "^1.1.7"
+	},
+	"type": "module"
+}
