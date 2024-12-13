@@ -6,14 +6,18 @@ class NoSQLSqlite3
 
 	function __construct($pathtofile)
 	{
+		//echo getcwd();
 		if (!file_exists($pathtofile)) {
+			//echo "<br/>creating new db";
 			$this->conn = new SQLite3($pathtofile);
-			$this->conn = $this->conn->exec(`CREATE TABLE "tb" (
-					"key"	BLOB,
-					"value"	BLOB,
-					PRIMARY KEY("key")
-					) without rowid;`);
+			assert(is_file($pathtofile), "NoSqlite File not created");
+			//echo "<br/>creating new table";
+			$this->conn->exec("CREATE TABLE 'tb' ('key' BLOB,'value' BLOB, PRIMARY KEY('key')) without rowid;");
+			//echo "<br/>created table";
+			//echo $this->conn->lastErrorMsg();
+
 		} else {
+			//echo "<br/>already existing db";
 			$this->conn = new SQLite3($pathtofile);
 		}
 		$this->getKeylist();
