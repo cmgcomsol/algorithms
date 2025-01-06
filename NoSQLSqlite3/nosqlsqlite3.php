@@ -73,4 +73,23 @@ class NoSQLSqlite3
 
 		return $this->conn->exec($query);
 	}
+
+	function getKeysForValues($values)
+	{
+		$query = "select * from tb where value like('%$values%')";
+		//echo $query;
+		$result = $this->conn->query($query);
+		$rows = [];
+		//echo "here1";
+		//var_dump($result);
+		//var_dump($result->fetchArray());
+		while ($row = $result->fetchArray()) {
+			//echo "here3";
+			$rows[] = $row['key'];
+			//var_dump($row);
+		}
+		//echo "here2";
+		return $rows;
+
+	}
 }
