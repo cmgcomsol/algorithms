@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+		crossorigin="anonymous"></script>
+
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+
+<body>
+	<button onclick="decrement()">-</button>
+	<input type="number" id="cartvalue" value="9">
+	<button onclick="increment()">+</button>
+
+	<div style="
+        left: 50%;
+        margin-top: 25%;
+        position: relative;
+        /*border: 1px solid blue;*/
+      ">
+		<div id="box" style="
+          position: relative;
+          /*border: 1px solid red;*/
+          width: 125px;
+          height: 100px;
+          z-index: 100;
+          float: left;
+        ">
+			<img class="purbox animate__animated" src="box1.png" id="box1" />
+			<img class="purbox animate__animated" src="box2.png" id="box2" />
+			<img class="purbox animate__animated" src="box3.png" id="box3" />
+			<img class="purbox animate__animated" src="box4.png" id="box4" />
+			<img class="purbox animate__animated" src="box5.png" id="box5" />
+			<img class="purbox animate__animated" src="box6.png" id="box6" />
+			<img class="purbox animate__animated" src="box7.png" id="box7" />
+			<img class="purbox animate__animated" src="box8.png" id="box8" />
+			<img class="purbox animate__animated" src="box9.png" id="box9" />
+		</div>
+		<div style="margin: auto">
+			<img src="cart.png" style="
+            width: 200px;
+            height: auto;
+            z-index: 1000;
+            float: left;
+            position: relative;
+            margin-left: -125px;
+            margin-top: -20px;
+          " />
+		</div>
+	</div>
+	<style>
+		#box1 {
+
+			position: absolute;
+			margin-top: 60px;
+			margin-left: 50px;
+			rotate: 5deg;
+			width: 35px;
+			height: auto;
+		}
+
+		#box2 {
+
+			position: absolute;
+			margin-top: 65px;
+			margin-left: 80px;
+			rotate: -5deg;
+			width: 40px;
+			height: auto;
+		}
+
+		#box3 {
+
+			position: absolute;
+			margin-top: 40px;
+			margin-left: 75px;
+			rotate: 10deg;
+			width: 50px;
+			height: auto;
+		}
+
+		#box4 {
+
+			position: absolute;
+			margin-top: 55px;
+			margin-left: 5px;
+			rotate: 10deg;
+			width: 50px;
+			height: auto;
+		}
+
+		#box5 {
+
+			position: absolute;
+			margin-top: 26px;
+			margin-left: 25px;
+			rotate: deg;
+			width: 50px;
+			height: auto;
+		}
+
+		#box6 {
+
+			position: absolute;
+			margin-top: -10px;
+			margin-left: 95px;
+			rotate: 50deg;
+			width: 50px;
+			height: auto;
+		}
+
+		#box7 {
+
+			position: absolute;
+			margin-top: -10px;
+			margin-left: 1px;
+			rotate: -70deg;
+			width: 50px;
+			height: auto;
+		}
+
+		#box8 {
+
+			position: absolute;
+			margin-top: 13px;
+			margin-left: 60px;
+			rotate: -90deg;
+			width: 50px;
+			height: auto;
+		}
+
+		#box9 {
+
+			position: absolute;
+			margin-top: -20px;
+			margin-left: 55px;
+
+			width: 50px;
+			height: auto;
+		}
+
+		.purbox {
+			display: none;
+		}
+	</style>
+	<script>
+		$(document).ready(() => {
+			console.log("Ready");
+			for (let i = 1; i <= 9; i++) {
+				setTimeout(() => {
+					console.log("Timed out", i);
+					$("#box" + i).css("display", "block");
+					$("#box" + i).addClass("animate__bounceInDown")
+				}, 250 * i);
+			}
+		})
+
+		function showActualCartBoxes() {
+			let cartsize = Number($("#cartvalue").val());
+			$(".purbox").css("display", "none");
+			$(".purbox").removeClass("animate__bounceOutUp");
+			$(".purbox").removeClass("animate__bounceInDown");
+			console.log("cart size", cartsize);
+			for (let i = 1; i <= cartsize; i++) {
+				console.log("showing box", i);
+				$("#box" + i).css("display", 'block');
+			}
+		}
+
+		function decrement() {
+			console.log("decrementing");
+			showActualCartBoxes();
+			let cartsize = $("#cartvalue").val();
+			if (cartsize < 1) {
+				console.log("returning");
+
+				return;
+			}
+			$("#cartvalue").val(Number(cartsize) - 1);
+			$("#box" + cartsize).addClass("animate__bounceOutUp");
+			/*$("#box" + cartsize).css("display", "none");*/
+		}
+
+
+		function increment() {
+			showActualCartBoxes();
+			let cartsize = Number($("#cartvalue").val());
+			if (cartsize >= 9) {
+				console.log("returning");
+				$("#cartvalue").val(Number(cartsize) + 1);
+				return;
+			}
+			console.log("showing box ", cartsize + 1)
+			cartsize += 1
+			$("#cartvalue").val(Number(cartsize));
+			$("#box" + cartsize).css("display", "block");
+			$("#box" + cartsize).addClass("animate__bounceInDown");
+
+		}
+	</script>
+</body>
+
+</html>
