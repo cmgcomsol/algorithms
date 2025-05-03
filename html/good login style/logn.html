@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+		crossorigin="anonymous"></script>
+
+	<script src="https://code.jquery.com/jquery-3.7.1.slim.js"
+		integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc=" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+	<div class="d-flex flex-row justify-content-center align-items-center" style="height: 100vh;width:100vw;">
+
+		<div class="d-flex flex-column justify-content-center  shadow p-3 px-5" id="loginbox">
+			<h1 class="align-self-center">Login Form</h1>
+
+			<label for="userid" id="useridlabel">Enter User ID</label>
+			<input type="text" name="" id="userid" placeholder="Enter user Id" onfocus="useridfocus()"
+				onblur="useridblur()">
+			<label for="password" id="passwordlabel">Enter password</label>
+			<input type="password" name="" id="password" placeholder="Enter password" onfocus="passwordfocus()"
+				onblur="passwordblur()">
+			<br>
+			<div class="d-flex flex-row justify-content-between mt-3">
+				<input class='' style='width:16px;' type="checkbox" name="" id=""> &nbsp; Save login information
+				&nbsp; &nbsp;
+				<span>Forgot password?</span>
+			</div>
+
+			<button class="mt-5 border rounded p-2">Login</button>
+
+			<div class="text-center mt-2">Don't have an account? <a href="">Create now</a></div>
+		</div>
+
+	</div>
+	<style>
+		body {
+			background-image: url(bg.jpg);
+			background-size: cover;
+			background-position: center;
+			background-attachment: fixed;
+		}
+
+		input {
+			width: 300px;
+		}
+
+		#loginbox {
+			background-color: rgba(0, 0, 0, .6);
+			outline: transparent;
+			color: white;
+			border-radius: 3%;
+
+		}
+
+		#loginbox h1 {
+			font-weight: bold;
+			font-size: 1.5rem;
+		}
+
+		label {
+			margin-top: 45px;
+			font-weight: bold;
+			color: transparent;
+		}
+
+		input {
+			outline: transparent;
+			background-color: transparent;
+			border: 0px;
+			border-bottom: 1px solid white;
+			color: white;
+			width: 100%;
+		}
+
+		button {
+			background-color: white;
+			color: black;
+			font-weight: bold;
+		}
+
+		button:hover {
+			background-color: rgba(255, 255, 255, .2);
+			color: white;
+		}
+	</style>
+	<script>
+		function useridfocus() {
+			$("#useridlabel").css("color", 'white');
+			$("#userid").attr("placeholder", '');
+
+		}
+		function useridblur() {
+			if ($("#userid").val().length > 0) {
+				$("#useridlabel").css("color", 'white');
+			} else {
+				$("#useridlabel").css("color", 'transparent');
+				$("#userid").attr("placeholder", 'Enter User Id');
+
+			}
+		}
+
+		function passwordfocus() {
+			$("#passwordlabel").css("color", 'white');
+			$("#password").attr("placeholder", '');
+
+		}
+		function passwordblur() {
+			if ($("#password").val().length > 0) {
+				$("#passwordlabel").css("color", 'white');
+			} else {
+				$("#passwordlabel").css("color", 'transparent');
+				$("#password").attr("placeholder", 'Enter password');
+
+			}
+		}
+	</script>
+</body>
+
+</html>
