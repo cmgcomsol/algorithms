@@ -36,7 +36,7 @@ class NoSQLSqlite3
 
 	function get($key)
 	{
-		if (array_search($key, $this->keylist) === false) {
+		if (!$this->keyExists($key)) {
 			//var_dump(array_search($key, $this->keylist));
 			return null;
 		}
@@ -57,7 +57,7 @@ class NoSQLSqlite3
 	{
 		assert(gettype($value) == 'string', "Value must be of string type");
 
-		if (array_search($key, $this->keylist) === false) { // key not found
+		if (!$this->keyExists($key)) { // key not found
 			$this->keylist[] = $key;
 			$query = "insert into tb values('{$key}','{$value}')";
 			return $this->conn->exec($query);
@@ -91,5 +91,15 @@ class NoSQLSqlite3
 		//echo "here2";
 		return $rows;
 
+	}
+	
+	function keyExists($key)
+	{
+		foreach ($this->keylist as $checkkey) {
+			if (strcmp($key, $checkkey) === 0) { //key exists
+				return true;
+			}
+		}
+		return false; //key does not exist;
 	}
 }
