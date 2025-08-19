@@ -20,7 +20,15 @@ class NoSQLSqlite3
 			//echo "<br/>already existing db";
 			$this->conn = new SQLite3($pathtofile);
 		}
+
+		$this->conn->busyTimeout(3000);
+		
 		$this->getKeylist();
+	}
+
+	
+	function __destruct(){
+		$this->conn->close();
 	}
 
 	function getKeylist()
