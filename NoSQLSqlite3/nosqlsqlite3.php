@@ -58,6 +58,9 @@ class NoSQLSqlite3
 
 	function getJson($key)
 	{
+		if (!$this->keyExists($key)) { // key not found
+			return null;
+		}
 		return json_decode($this->get($key), true);
 	}
 
