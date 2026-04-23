@@ -26,13 +26,18 @@ Function HundredWords(number)
 End Function
 
 Function ThousandWords(number)
+    REM MsgBox number
     If number = 0 Then
         ThousandWords = ""
         Exit Function
     End If
-   
-    Let m = Int(number / 1000)
-    ThousandWords = digit(m) + " THOUSAND " + HundredWords(number Mod 1000)
+           
+    If number < 1000 Then
+        ThousandWords = HundredWords(number Mod 1000)
+    Else
+        Let M = Int(number / 1000)
+        ThousandWords = digit(M) + " THOUSAND " + HundredWords(number Mod 1000)
+    End If
 End Function
 
 Function LakhWords(number)
