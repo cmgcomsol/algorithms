@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="https://code.jquery.com/jquery-4.0.0.min.js" integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+	async function getUrl(url, callback, customHeaders = {}) {
+		try {
+			// Make the network request using fetch and await
+			const response = await fetch(url, {
+				method: 'GET', // or 'POST', 'PUT', etc.
+				headers: new Headers(customHeaders)
+			});
+
+			// Check if the HTTP status code is OK (200-299)
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+
+			// Parse the response body as JSON
+			//const data = await response.json();
+			//response.json() – For structured data objects ({}, []).
+			// response.text() – For HTML, XML, CSS, or plain text strings.
+			// response.blob() – For binary files (Images, PDFs, audio).
+
+			const data = await response.text();
+
+			// Execute the callback function, passing the parsed data and no error
+			callback(null, data);
+
+		} catch (error) {
+			// Pass the error to the callback function if the request or parsing fails
+			callback(error, null);
+		}
+	}
+
+	async function postUrl(url, dataObj, callback, customHeaders = {}) {
+		try {
+			// Make the network request using fetch and await
+			customHeaders["Content-Type"] = 'application/json'
+			const response = await fetch(url, {
+				method: 'POST', // or 'POST', 'PUT', etc.
+				headers: new Headers(customHeaders),
+				body: JSON.stringify(dataObj)
+			});
+
+			// Check if the HTTP status code is OK (200-299)
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+
+			// Parse the response body as JSON
+			//const data = await response.json();
+			const data = await response.text();
+
+			// Execute the callback function, passing the parsed data and no error
+			callback(null, data);
+
+		} catch (error) {
+			// Pass the error to the callback function if the request or parsing fails
+			callback(error, null);
+		}
+	}
+
+	$(document).ready(() => {
+		console.log("Ready!!!");
+		getUrl("/api/getdata", (error, data) => {
+			if (error !== null) {
+				console.log(error);
+				return;
+			}
+			console.log(data);
+		});
+
+		postUrl(
+			"/api/postdata",
+			{ "str1": "hi", "str2": "hello" },
+			(error, data) => {
+
+				if (error !== null) {
+					console.log(error);
+					return;
+				}
+				console.log(data);
+				$("body").html(data);
+			});
+	})
+
+</script>
